@@ -7,10 +7,14 @@ import type { RunTimeLayoutConfig } from 'umi';
 import { history, Link } from 'umi';
 import defaultSettings from '../config/defaultSettings';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
-import {RequestConfig} from "@@/plugin-request/request";
+import { RequestConfig } from '@@/plugin-request/request';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
+/**
+ * 无需用户登陆态的页面
+ */
+const NO_NEED_LOGIN_WHITE_LIST = ['/user/register',loginPath];
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
@@ -32,26 +36,28 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser();
-      return msg.data;
+      return await queryCurrentUser();
     } catch (error) {
       history.push(loginPath);
     }
     return undefined;
   };
-  // 如果不是登录页面，执行
-  if (history.location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
+  // 如果是无需登录的页面，不执行
+  if (NO_NEED_LOGIN_WHITE_LIST.includes(history.location.pathname)) {
     return {
+      // @ts-ignore
       fetchUserInfo,
-      currentUser,
       settings: defaultSettings,
     };
   }
+  const currentUser = await fetchUserInfo();
   return {
+    // @ts-ignore
     fetchUserInfo,
+    currentUser,
     settings: defaultSettings,
   };
+
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
@@ -60,11 +66,14 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: initialState?.currentUser?.username,
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
+      if (NO_NEED_LOGIN_WHITE_LIST.includes(location.pathname)) {
+        return;
+      }
       // 如果没有登录，重定向到 login
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);

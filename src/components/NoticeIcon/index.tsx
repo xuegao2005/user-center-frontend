@@ -107,9 +107,11 @@ const NoticeIconView: React.FC = () => {
     message.success(`${'清空了'} ${title}`);
   };
 
+
   return (
     <NoticeIcon
       className={styles.action}
+      // @ts-ignore
       count={currentUser && currentUser.unreadCount}
       onItemClick={(item) => {
         changeReadState(item.id!);
