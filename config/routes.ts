@@ -29,12 +29,13 @@
     name: 'admin',
     icon: 'crown',
     access: 'canAdmin',
+    component: './Admin',
     routes: [
       {
-        path: '/admin/sub-page',
-        name: 'sub-page',
+        path: '/admin/user-manage',
+        name: '用户管理',
         icon: 'smile',
-        component: './Welcome',
+        component: './Admin/UserManage',
       },
       {
         component: './404',

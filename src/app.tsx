@@ -14,7 +14,7 @@ const loginPath = '/user/login';
 /**
  * 无需用户登陆态的页面
  */
-const NO_NEED_LOGIN_WHITE_LIST = ['/user/register',loginPath];
+const NO_NEED_LOGIN_WHITE_LIST = ['/user/register', loginPath];
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
@@ -54,10 +54,10 @@ export async function getInitialState(): Promise<{
   return {
     // @ts-ignore
     fetchUserInfo,
+    // @ts-ignore
     currentUser,
     settings: defaultSettings,
   };
-
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout

@@ -1,19 +1,12 @@
 import Footer from '@/components/Footer';
 import { login } from '@/services/ant-design-pro/api';
-import {
-  LockOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
-import {
-  LoginForm,
-  ProFormCheckbox,
-  ProFormText,
-} from '@ant-design/pro-components';
-import {Alert, Divider, message, Space, Tabs} from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components';
+import { Alert, Divider, message, Space, Tabs } from 'antd';
 import React, { useState } from 'react';
-import {FormattedMessage, history, Link, SelectLang, useIntl, useModel} from 'umi';
+import { FormattedMessage, history, Link, SelectLang, useModel } from 'umi';
 import styles from './index.less';
-import {BLOG} from "@/constant";
+import { BLOG } from '@/constant';
 
 const LoginMessage: React.FC<{
   content: string;
@@ -29,19 +22,15 @@ const LoginMessage: React.FC<{
 );
 
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
+  const [userLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
 
-  const intl = useIntl();
-
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
+
     if (userInfo) {
-      await setInitialState((s) => ({
-        ...s,
-        currentUser: userInfo,
-      }));
+      await setInitialState((s) => ({ ...s, currentUser: userInfo }));
     }
   };
 
@@ -49,27 +38,23 @@ const Login: React.FC = () => {
     try {
       // 登录
       const user = await login({ ...values, type });
+
       if (user) {
-        const defaultLoginSuccessMessage = intl.formatMessage({
-          id: 'pages.login.success',
-          defaultMessage: '登录成功！',
-        });
+        const defaultLoginSuccessMessage = '登录成功！';
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
         /** 此方法会跳转到 redirect 参数所在的位置 */
+
         if (!history) return;
         const { query } = history.location;
-        const { redirect } = query as { redirect: string };
+        const { redirect } = query as {
+          redirect: string;
+        };
         history.push(redirect || '/');
         return;
       }
-      // 如果失败去设置用户错误信息
-      setUserLoginState(user);
     } catch (error) {
-      const defaultLoginFailureMessage = intl.formatMessage({
-        id: 'pages.login.failure',
-        defaultMessage: '登录失败，请重试！',
-      });
+      const defaultLoginFailureMessage = '登录失败，请重试！';
       message.error(defaultLoginFailureMessage);
     }
   };
@@ -77,40 +62,30 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.lang} data-lang>
-        {SelectLang && <SelectLang />}
-      </div>
+      <div className={styles.lang}>{SelectLang && <SelectLang />}</div>
       <div className={styles.content}>
         <LoginForm
           logo={<img alt="logo" src="/logo.svg" />}
           title="用户中心"
-          subTitle={<a href={BLOG} target="_blank" rel="noreferrer"> by xuegao2005 </a>}
+          subTitle={
+            <a href={BLOG} target="_blank" rel="noreferrer">
+              {' '}
+              by xuegao2005{' '}
+            </a>
+          }
           initialValues={{
             autoLogin: true,
           }}
-
           onFinish={async (values) => {
             await handleSubmit(values as API.LoginParams);
           }}
         >
           <Tabs activeKey={type} onChange={setType}>
-            <Tabs.TabPane
-              key="account"
-              tab={intl.formatMessage({
-                id: 'pages.login.accountLogin.tab',
-                defaultMessage: '账户密码登录',
-              })}
-            />
-
+            <Tabs.TabPane key="account" tab={'账号密码登录'} />
           </Tabs>
 
           {status === 'error' && loginType === 'account' && (
-            <LoginMessage
-              content={intl.formatMessage({
-                id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage: '账户或密码错误',
-              })}
-            />
+            <LoginMessage content={'错误的账号和密码'} />
           )}
           {type === 'account' && (
             <>
@@ -153,8 +128,8 @@ const Login: React.FC = () => {
                   {
                     min: 8,
                     type: 'string',
-                    message: ('密码长度不少于8位')
-                  }
+                    message: '密码长度不少于8位',
+                  },
                 ]}
               />
             </>
@@ -181,7 +156,6 @@ const Login: React.FC = () => {
                 <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
               </a>
             </Space>
-
           </div>
         </LoginForm>
       </div>
