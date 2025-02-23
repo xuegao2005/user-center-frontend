@@ -65,7 +65,12 @@ const Login: React.FC = () => {
       <div className={styles.lang}>{SelectLang && <SelectLang />}</div>
       <div className={styles.content}>
         <LoginForm
-          logo={<img alt="logo" src="/logo.svg" />}
+          logo={
+            <img
+              alt="logo"
+              src="https://i.pinimg.com/736x/71/cf/e4/71cfe4937cca99d21d65373122ab7307.jpg"
+            />
+          }
           title="用户中心"
           subTitle={
             <a href={BLOG} target="_blank" rel="noreferrer">
