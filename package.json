@@ -33,7 +33,8 @@
     "test:component": "umi test ./src/components",
     "test:e2e": "node ./tests/run-tests.js",
     "tsc": "tsc --noEmit",
-    "_dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider npm run start:dev"
+    "_dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider npm run start:dev",
+    "_build": "cross-env NODE_OPTIONS=--openssl-legacy-provider umi build"
   },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
