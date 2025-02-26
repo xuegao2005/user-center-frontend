@@ -42,7 +42,7 @@ export async function getInitialState(): Promise<{
     }
     return undefined;
   };
-  // 如果是无需登录的页面，不执行
+  // 如果是无需登录的页面（白名单），不执行
   if (NO_NEED_LOGIN_WHITE_LIST.includes(history.location.pathname)) {
     return {
       // @ts-ignore

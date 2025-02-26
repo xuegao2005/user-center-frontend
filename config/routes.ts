@@ -4,7 +4,7 @@
     layout: false,
     routes: [
       {
-        name: '登陆',
+        name: '登录',
         path: '/user/login',
         component: './user/Login',
       },
@@ -42,12 +42,12 @@
       },
     ],
   },
-  {
+  /*  {
     name: 'list.table-list',
     icon: 'table',
     path: '/list',
     component: './TableList',
-  },
+  },*/
   {
     path: '/',
     redirect: '/welcome',

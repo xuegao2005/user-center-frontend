@@ -2,9 +2,9 @@ import Footer from '@/components/Footer';
 import { register } from '@/services/ant-design-pro/api';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
-import { message, Tabs } from 'antd';
+import { Divider, message, Space, Tabs } from 'antd';
 import React, { useState } from 'react';
-import { FormattedMessage, history } from 'umi';
+import { FormattedMessage, history, Link } from 'umi';
 import styles from './index.less';
 import { BLOG } from '@/constant';
 
@@ -50,7 +50,12 @@ const Register: React.FC = () => {
               submitText: '注册',
             },
           }}
-          logo={<img alt="logo" src="/logo.svg" />}
+          logo={
+            <img
+              alt="logo"
+              src="https://i.pinimg.com/736x/71/cf/e4/71cfe4937cca99d21d65373122ab7307.jpg"
+            />
+          }
           title="用户中心"
           subTitle={
             <a href={BLOG} target="_blank" rel="noreferrer">
@@ -139,6 +144,15 @@ const Register: React.FC = () => {
               />
             </>
           )}
+          <div
+            style={{
+              marginBottom: 24,
+            }}
+          >
+            <Space split={<Divider type="vertical" />}>
+              <Link to="/user/login">用户登录</Link>
+            </Space>
+          </div>
         </LoginForm>
       </div>
       <Footer />

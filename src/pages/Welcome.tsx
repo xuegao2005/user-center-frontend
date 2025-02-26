@@ -19,6 +19,15 @@ const Welcome: React.FC = () => {
       <Card>
         <CodePreview>用户中心管理系统</CodePreview>
       </Card>
+      <Card>
+        <CodePreview>用户中心管理系统</CodePreview>
+      </Card>
+      <Card>
+        <CodePreview>用户中心管理系统</CodePreview>
+      </Card>
+      <Card>
+        <CodePreview>用户中心管理系统</CodePreview>
+      </Card>
     </PageContainer>
   );
 };

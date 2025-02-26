@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer';
 import { login } from '@/services/ant-design-pro/api';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components';
+import { LoginForm, ProFormText } from '@ant-design/pro-components';
 import { Alert, Divider, message, Space, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { FormattedMessage, history, Link, SelectLang, useModel } from 'umi';
@@ -146,9 +146,6 @@ const Login: React.FC = () => {
             }}
           >
             <Space split={<Divider type="vertical" />}>
-              <ProFormCheckbox noStyle name="autoLogin">
-                <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" />
-              </ProFormCheckbox>
               <Link to="/user/register">新用户注册</Link>
               <a
                 style={{

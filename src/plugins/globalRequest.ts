@@ -13,11 +13,10 @@ import { stringify } from 'querystring';
 const request = extend({
   credentials: 'include', // 默认请求是否带上cookie
   prefix: process.env.NODE_ENV === 'production' ? 'http://47.99.78.238:8080' : undefined,
-  // requestType: 'form',
 });
 
 /**
- * 所以请求拦截器
+ * 所有请求拦截器
  */
 request.interceptors.request.use((url, options): any => {
   console.log(`do request url = ${url}`);
